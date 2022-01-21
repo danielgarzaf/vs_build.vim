@@ -1,2 +1,2 @@
 command! Build call vs_build#build()
-nnoremap :Build<CR>
+command! Run call vs_build#run()

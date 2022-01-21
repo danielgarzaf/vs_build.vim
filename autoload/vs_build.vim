@@ -48,3 +48,11 @@ function! vs_build#build() abort
     let sol_file = FindFirstFiletype(files, '.sln')
     execute "!devenv ".sol_file." /Build Debug"
 endfunction
+
+function! vs_build#run() abort
+    let files = ListFilesFromDir('.', [])
+    let sol_file = FindFirstFiletype(files, '.sln')
+    let proj_name = sol_file[:-5]
+    let exe_file = FindFirstFiletype(files, proj_name.'.exe')
+    execute "!.\\".exe_file
+endfunction
