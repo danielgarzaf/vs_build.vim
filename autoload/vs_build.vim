@@ -51,8 +51,8 @@ endfunction
 
 function! vs_build#run() abort
     let files = ListFilesFromDir('.', [])
-    let sol_file = FindFirstFiletype(files, '.sln')
-    let proj_name = sol_file[:-5]
+    let sln_file = FindFirstFiletype(files, '.sln')
+    let proj_name = split(sln_file[:-5], '/')[-1]
     let exe_file = FindFirstFiletype(files, proj_name.'.exe')
-    execute "!.\\".exe_file
+    execute "!".exe_file
 endfunction
