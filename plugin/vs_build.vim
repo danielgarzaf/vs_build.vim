@@ -1,2 +1,5 @@
-command! Build call vs_build#build()
-command! Run call vs_build#run()
+command! VSBuild call vs_build#build()
+command! VSRun call vs_build#run()
+command! -nargs=1 VSBuildMode call vs_build#build_mode(<args>)
+command! -nargs=1 VSAddBuildMode call vs_build#add_build_mode(<args>)
+command! -nargs=1 VSRemoveBuildMode call vs_build#remove_build_mode(<args>)
