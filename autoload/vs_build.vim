@@ -10,13 +10,6 @@ function! EndsWith(string, sub) abort
 endfunction
 
 function! ListFilesFromDir(path, list_files) abort
-    let slash = ""
-    if has("win32")
-        let slash = "\\"
-    elseif has("unix")
-        let slash = "/"
-    endif
-
     for elem in split(globpath(a:path, "*"))
         " If it's a file, add it to list_files
         if filereadable(elem)
