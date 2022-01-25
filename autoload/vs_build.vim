@@ -50,9 +50,11 @@ function! vs_build#build() abort
 endfunction
 
 function! vs_build#run() abort
-    let files = ListFilesFromDir('.', [])
-    let sln_file = FindFirstFiletype(files, '.sln')
-    let proj_name = split(sln_file[:-5], '/')[-1]
-    let exe_file = FindFirstFiletype(files, proj_name.'.exe')
+    let exe_files = filter(ListFilesFromDir('.', []), {idx, val -> EndsWith(val, ".exe")})
+    let exe_file = ""
+    if len(exe_files) > 0
+        let exe_file = exe_files[0]
+    endif
+    echo "Executing " . exe_file
     execute "!".exe_file
 endfunction
