@@ -27,16 +27,13 @@ function! ListFilesFromDir(path, list_files) abort
         let slash = "/"
     endif
 
-    let path = a:path
-    if a:path[:1] == ".".slash && len(a:path) > 2
-        let path = a:path[2:]
-    endif
-
-    for elem in split(globpath(path, "*"))
+    for elem in split(globpath(a:path, "*"))
+        " If it's a file, add it to list_files
         if filereadable(elem)
             call add(a:list_files, elem)
+        " Else, repeat process with current path
         else 
-            call ListFilesFromDir(path.slash.elem, a:list_files)
+            call ListFilesFromDir(elem, a:list_files)
         endif
     endfor
     return a:list_files
