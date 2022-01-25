@@ -20,15 +20,23 @@ function! FindFiles(files, filetype) abort
 endfunction
 
 function! ListFilesFromDir(path, list_files) abort
+    let slash = ""
+    if has("win32")
+        let slash = "\\"
+    elseif has("unix")
+        let slash = "/"
+    endif
+
     let path = a:path
-    if a:path[:1] == "./" && len(a:path) > 2
+    if a:path[:1] == ".".slash && len(a:path) > 2
         let path = a:path[2:]
     endif
+
     for elem in split(globpath(path, "*"))
         if filereadable(elem)
             call add(a:list_files, elem)
         else 
-            call ListFilesFromDir(path."/".elem, a:list_files)
+            call ListFilesFromDir(path.slash.elem, a:list_files)
         endif
     endfor
     return a:list_files
