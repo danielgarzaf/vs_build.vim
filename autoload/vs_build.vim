@@ -55,11 +55,16 @@ function! vs_build#build() abort
     execute "!devenv ".sln_file." /Build ".g:vs_mode
 endfunction
 
-function! vs_build#run() abort
+function! vs_build#run_current() abort
     let files = ListFilesFromDir('.', [])
     let exe_file = GetFirstFiletype(files, '.exe')
     echo "Running: ".exe_file
     execute "!".exe_file
+endfunction
+
+function! vs_build#run_newest() abort
+    call vs_build#build()
+    call vs_build#run_current()
 endfunction
 
 function! Startup() abort
